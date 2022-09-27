@@ -1,0 +1,9 @@
+.in{
+    background-color: red;
+    border-radius: 10px;
+}
+
+.out{
+    background-color: grey;
+    border-radius: 10px;
+}
