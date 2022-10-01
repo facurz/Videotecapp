@@ -1,44 +1,33 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSelectedMovie } from '../../store/slices/movies/moviesSlice';
 import {
-    startAddMovieToFavorites,
+    startAddFavorites,
     startDeleteFavorites,
-    startGetMovies,
 } from '../../store/slices/movies/thunks';
+import { MovieCard } from './MovieCard';
 
-export const MoviesList = () => {
+export const MoviesList = ({ movies, favoritesId }) => {
     const dispatch = useDispatch();
 
-    const { movies, favoritesMovies, favoritesId} = useSelector(state => state.movies);
-
-    useEffect(() => {
-        dispatch(startGetMovies());
-    }, [favoritesMovies]);
-
-    const onAddFavorites = movie => {
+    const onAddRemoveFavorites = movie => {
         dispatch(setSelectedMovie(movie));
-        (favoritesId?.includes(movie.id))
-        ?dispatch(startDeleteFavorites())
-        :dispatch(startAddMovieToFavorites())
-        };
-
+        
+        favoritesId.includes(movie.id)
+            ? dispatch(startDeleteFavorites())
+            : dispatch(startAddFavorites());
+    };
 
     return (
         <>
-            <h1>Discover: </h1>
-            <hr />
-
             <ol>
                 {movies.map(movie => (
-                    <li key={movie.id}>
-                        <h1>{movie.title}</h1>
-                        {movie.title}
-                        <p>{movie.overview}</p>
-                        <button className={ favoritesId?.includes(movie.id)? 'in' : 'out'} onClick={() => onAddFavorites(movie)}>
-                            Favorite
-                        </button>
-                    </li>
+                    <MovieCard
+                        key={movie.id}
+                        movie={movie}
+                        favoritesId={favoritesId}
+                        onAddRemoveFavorites={onAddRemoveFavorites}
+                    />
                 ))}
             </ol>
         </>
