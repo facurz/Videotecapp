@@ -10,6 +10,7 @@ import {
     Divider,
     CardHeader,
 } from '@mui/material';
+import './searcher.css'
 
 export const Searcher = ({ genres, onSubmit, onSelectGenre, pageTitle }) => {
     const [menuOpen, setMenuOpen] = useState(false);
