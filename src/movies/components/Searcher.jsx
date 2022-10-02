@@ -1,38 +1,88 @@
-import { Paper, Button, Grid, Divider, Chip } from '@mui/material';
+import { useState } from 'react';
+import { Menu, Search } from '@mui/icons-material';
+import {
+    Paper,
+    Button,
+    Grid,
+    Box,
+    TextField,
+    IconButton,
+    Divider,
+    CardHeader,
+} from '@mui/material';
 
-export const Searcher = ({ genres, onSubmit, onSelectGenre }) => {
+export const Searcher = ({ genres, onSubmit, onSelectGenre, pageTitle }) => {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [genreSelected, setGenreSelected] = useState('Todas');
+
     return (
         <>
             <form
-                className='d-flex align-items-center'
-                onSubmit={e => onSubmit(e)}
+                onSubmit={e => {
+                    onSubmit(e);
+                    setGenreSelected(e.target.keyword.value.trim());
+                }}
+                className='d-flex'
             >
-                <input
-                    className='form-control mb-0 mx-2'
+                <TextField
+                    id='outlined-size-small'
+                    size='small'
                     type='text'
                     name='keyword'
+                    focused
                     placeholder='Quiero buscar...'
-                />
-                <button className='btn btn-success' type='submit'>
-                    Buscar
-                </button>
-            </form>
-            <Divider sx={{mt: 2, mb:2}} />
-            <Grid container spacing={1}>
-                {genres.map(genre => (
-                    <Grid item key={genre.id} xs={1.5} textAlign='center'>
-                        <Paper elevation={3}>
-                            <Button
-                                variant='text'
-                                onClick={() => onSelectGenre(`${genre.id}`)}
-                                sx={{fontSize: 10, width: '100%'}}
+                    fullWidth
+                    InputProps={{
+                        endAdornment: (
+                            <IconButton
+                                type='submit'
+                                position='end'
+                                sx={{ p: '10px' }}
+                                aria-label='search'
                             >
-                                {genre.name}
-                            </Button>
-                        </Paper>
-                    </Grid>
-                ))}
-            </Grid>
+                                <Search />
+                            </IconButton>
+                        ),
+                    }}
+                />
+                <Button
+                    variant='outlined'
+                    sx={{ ml: 1 }}
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    endIcon={<Menu />}
+                >
+                    Categorías
+                </Button>
+            </form>
+
+            <Box className={'genresMenu ' + (menuOpen && 'active')}>
+                <Grid container spacing={0.5}>
+                    {genres.map(genre => (
+                        <Grid item key={genre.id} xs={12} textAlign='center'>
+                            <Paper elevation={5}>
+                                <Button
+                                    variant='contained'
+                                    onClick={() => {
+                                        onSelectGenre(`${genre.id}`);
+                                        setGenreSelected(`${genre.name}`);
+                                        setMenuOpen(!menuOpen);
+                                    }}
+                                    sx={{ fontSize: 12, width: '100%' }}
+                                >
+                                    {genre.name}
+                                </Button>
+                            </Paper>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+            <Divider textAlign='left'>
+                <CardHeader
+                    title={`${pageTitle}`}
+                    titleTypographyProps={{ fontSize: 20 }}
+                    subheader={`"${genreSelected}"`}
+                />
+            </Divider>
         </>
     );
 };

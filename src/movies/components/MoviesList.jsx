@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSelectedMovie } from '../../store/slices/movies/moviesSlice';
 import {
@@ -6,8 +5,9 @@ import {
     startDeleteFavorites,
 } from '../../store/slices/movies/thunks';
 import { MovieCard } from './MovieCard';
+import { Grid } from '@mui/material';
 
-export const MoviesList = ({ movies, favoritesId }) => {
+export const MoviesList = ({ movies, favoritesId}) => {
     const dispatch = useDispatch();
 
     const onAddRemoveFavorites = movie => {
@@ -20,7 +20,7 @@ export const MoviesList = ({ movies, favoritesId }) => {
 
     return (
         <>
-            <ol>
+            <Grid container spacing={2}>
                 {movies.map(movie => (
                     <MovieCard
                         key={movie.id}
@@ -29,7 +29,7 @@ export const MoviesList = ({ movies, favoritesId }) => {
                         onAddRemoveFavorites={onAddRemoveFavorites}
                     />
                 ))}
-            </ol>
+            </Grid>
         </>
     );
 };

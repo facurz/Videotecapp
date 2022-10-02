@@ -6,9 +6,9 @@ import {
     startGetMoviesByGenre,
     startSearchMoviesByKeyword,
 } from '../../store/slices/movies/thunks';
+import Swal from 'sweetalert2';
 import { MoviesList } from '../components/MoviesList';
 import { Searcher } from '../components/Searcher';
-import Swal from 'sweetalert2';
 import { Container, Divider, Typography } from '@mui/material';
 
 export const MoviesPage = () => {
@@ -19,16 +19,17 @@ export const MoviesPage = () => {
         state => state.movies
     );
 
+    const pageTitle = 'PELÍCULAS';
+
     //Show recommended movies
     useEffect(() => {
         dispatch(setMovies({ movies }));
     }, [favorites]);
 
     //Event search by name
-    const handlerSubmit = e => {
+    const handlerSubmit = (e) => {
         e.preventDefault();
         const keyword = e.target.keyword.value.trim();
-        console.log(keyword);
 
         if (!keyword) {
             Swal.fire({
@@ -49,15 +50,15 @@ export const MoviesPage = () => {
 
     return (
         <Container>
-            <Divider sx={{mt: 2, mb:2}} />
+            <Divider sx={{ mt: 2, mb: 2 }} />
             <Searcher
                 genres={genresMovies}
                 onSubmit={handlerSubmit}
                 onSelectGenre={handlerSelectGenre}
+                pageTitle={pageTitle}
             />
             
-            <Divider textAlign="left" sx={{mt: 3, mb:3}}><Typography variant='subtitle2'>PELÍCULAS</Typography></Divider>
-            <MoviesList movies={movies} favoritesId={favoritesId} />
+            <MoviesList movies={movies} favoritesId={favoritesId}/>
         </Container>
     );
 };

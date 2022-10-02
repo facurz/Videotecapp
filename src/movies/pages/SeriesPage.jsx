@@ -1,4 +1,3 @@
-import { Container, Divider } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +8,7 @@ import {
 } from '../../store/slices/movies/thunks';
 import { MoviesList } from '../components/MoviesList';
 import { Searcher } from '../components/Searcher';
+import { Container, Divider } from '@mui/material';
 
 export const SeriesPage = () => {
     const dispatch = useDispatch();
@@ -17,6 +17,8 @@ export const SeriesPage = () => {
     const { genresSeries, series, favorites, favoritesId } = useSelector(
         state => state.movies
     );
+
+    const pageTitle = 'SERIES';
 
     //Show recommended series
     useEffect(() => {
@@ -49,10 +51,9 @@ export const SeriesPage = () => {
                 genres={genresSeries}
                 onSubmit={handlerSubmit}
                 onSelectGenre={handlerSelectGenre}
+                pageTitle={pageTitle}
             />
-            <Divider sx={{mt: 2, mb:2}} />
-            <h1>Series</h1>
-            <MoviesList movies={series} favoritesId={favoritesId} />
+            <MoviesList movies={series} favoritesId={favoritesId}  />
         </Container>
     );
 };

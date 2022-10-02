@@ -2,6 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { startLogout } from '../../store/slices/auth/thunks';
+import './searcher.css'
+import logoFilm from '../../assets/logoFilm.png'
 
 
 export const NavBar = () => {
@@ -12,6 +14,10 @@ export const NavBar = () => {
 };
   return (
     <nav>
+      
+      <img src={logoFilm} width={120} height={70} />
+     
+    
         <Link to='/'>Pelis</Link>
         <Link to='/series'>Series</Link>
         <Link to='/favorites'>Favoritos</Link>
