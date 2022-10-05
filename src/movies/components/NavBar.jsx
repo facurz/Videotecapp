@@ -11,14 +11,12 @@ import {
     Typography,
     Menu,
     Button,
-    Tooltip,
-    Avatar,
     Container,
-    MenuItem,
     Paper,
 } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import logoFilm from '../../assets/logoFilm.png';
+
 
 const pages = [
     { name: 'Películas', link: '/' },
@@ -42,44 +40,46 @@ export const NavBar = () => {
         setAnchorElNav(null);
     };
 
-   
 
     return (
         <AppBar component='nav' position='static'>
             <Container>
                 <Toolbar disableGutters>
-                <Box
+                    <Box
                         width={90}
                         height={50}
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     >
-                        <img width={90}
-                        height={50} src={logoFilm} alt='logoFilm' />
+                        <img
+                            width={90}
+                            height={50}
+                            src={logoFilm}
+                            alt='logoFilm'
+                        />
                     </Box>
 
                     <Typography
-                        variant='h6'
+                        variant='h5'
                         noWrap
-                        component='a'
-                        href='/'
+                        component='h2'
+                        color='primary'
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'primary',
                             textDecoration: 'none',
                         }}
-                        
                     >
                         VIDEOTECAPP
-                    </Typography>
+                        </Typography>
+                     
 
                     <Box
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' }
+                            display: { xs: 'flex', md: 'none' },
                         }}
                     >
                         <IconButton
@@ -134,14 +134,18 @@ export const NavBar = () => {
                         height={50}
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     >
-                        <img width={90}
-                        height={50} src={logoFilm} alt='logoFilm' />
+                        <img
+                            width={90}
+                            height={50}
+                            src={logoFilm}
+                            alt='logoFilm'
+                        />
                     </Box>
                     <Typography
                         variant='h5'
                         noWrap
-                        component='a'
-                        href=''
+                        component='h2'
+                        color='primary'
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -149,30 +153,32 @@ export const NavBar = () => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'primary',
                             textDecoration: 'none',
                         }}
                     >
-                        VIDEOTECAPP
-                    </Typography>
+                       VIDEOTECAPP
+                        </Typography>
                     <Box
                         sx={{
+                            
                             flexGrow: 1,
-                            display: { xs: 'none', md: 'flex', justifyContent:'center' }
+                            display: {
+                                xs: 'none',
+                                md: 'flex',
+                            },
+                            justifyContent:'center'
                         }}
+                       
                     >
                         {pages.map(page => (
                             <Button
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
-                                
                                 sx={{
-                                    my: 2,
-                                    mx: 2,
+                                    ml: 1,
+                                    mr: 1,
                                     color: 'white',
                                     display: 'block',
-                                    
-                                    
                                 }}
                                 component={RouterLink}
                                 to={page.link}
@@ -183,7 +189,9 @@ export const NavBar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Button variant='outlined'onClick={onLogout}>Logout</Button>
+                        <Button variant='outlined' onClick={onLogout}>
+                            Logout
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>

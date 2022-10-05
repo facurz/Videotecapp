@@ -46,11 +46,11 @@ export const startGenresSeriesList = () => {
 };
 
 //Get  recommended movies from Api
-export const startGetMovies = () => {
+export const startGetMovies = (moviesPage) => {
     return async dispatch => {
         dispatch(loadingMovies());
         const endPoint =
-            'https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate';
+            `https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${moviesPage}`;
 
         const { data } = await axios.get(endPoint);
         dispatch(setMovies({ movies: data.results}));
@@ -83,11 +83,11 @@ export const startGetSeriesByGenre = (genreId) => {
 };
 
 //Get  recommended series from Api
-export const startGetSeries = () => {
+export const startGetSeries = (seriesPage) => {
     return async dispatch => {
         dispatch(loadingMovies());
         const endPoint =
-            'https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US&sort_by=popularity.desc&page=1&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0';
+            `https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0&page=${seriesPage}`;
 
         const { data } = await axios.get(endPoint);
         dispatch(setSeries({ series: data.results }));
@@ -95,11 +95,11 @@ export const startGetSeries = () => {
 };
 
 //Search Movies by keyword
-export const startSearchMoviesByKeyword = (keyword) => {
+export const startSearchMoviesByKeyword = (keyword, searchPage) => {
     return async dispatch => {
         dispatch(loadingMovies());
         const endPoint =
-        `https://api.themoviedb.org/3/search/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keyword}`;
+        `https://api.themoviedb.org/3/search/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keyword}&page=${searchPage}`;
 
         const { data } = await axios.get(endPoint);
         dispatch(setMovies({ movies: data.results }));

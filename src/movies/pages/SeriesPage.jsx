@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSeries } from '../../store/slices/movies/moviesSlice';
+import { setSeries, setSeriesPage } from '../../store/slices/movies/moviesSlice';
 import {
     startGetSeriesByGenre,
     startSearchSeriesByKeyword,
 } from '../../store/slices/movies/thunks';
+import Swal from 'sweetalert2';
 import { MoviesList } from '../components/MoviesList';
 import { Searcher } from '../components/Searcher';
 import { Container, Divider } from '@mui/material';
+import { Pagination } from '../components/Pagination';
 
 export const SeriesPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { genresSeries, series, favorites, favoritesId } = useSelector(
+    const { seriesPage, genresSeries, series, favorites, favoritesId } = useSelector(
         state => state.movies
     );
 
@@ -25,14 +27,23 @@ export const SeriesPage = () => {
         dispatch(setSeries({ series }));
     }, [favorites]);
 
+    useEffect(() => {
+        dispatch(setSeriesPage(1));
+    }, []);
+
+
     //Event search by name
     const handlerSubmit = e => {
         e.preventDefault();
         const keyword = e.target.keyword.value.trim();
         console.log(keyword);
 
-        if (keyword.length < 0) {
-            Swal.fire('Escribir una palabra clave');
+        if (!keyword) {
+            Swal.fire({
+                text: 'Debes escribir algo',
+                icon: 'question',
+                confirmButtonText: 'OK',
+            });
         } else {
             dispatch(startSearchSeriesByKeyword(keyword));
             navigate(`/series?keyword=${keyword}`);
@@ -44,6 +55,15 @@ export const SeriesPage = () => {
         dispatch(startGetSeriesByGenre(genreId));
     };
 
+    //Events handle pagination
+    const prevPage = () => {
+        dispatch(setSeriesPage(seriesPage - 1));
+    };
+
+    const nextPage = () => {
+        dispatch(setSeriesPage(seriesPage + 1));
+    };
+
     return (
          <Container>
             <Divider sx={{mt: 2, mb:2}} />
@@ -53,7 +73,8 @@ export const SeriesPage = () => {
                 onSelectGenre={handlerSelectGenre}
                 pageTitle={pageTitle}
             />
-            <MoviesList movies={series} favoritesId={favoritesId}  />
+            <Pagination page={seriesPage} nextPage={nextPage} prevPage={prevPage}/>
+            <MoviesList  movies={series} favoritesId={favoritesId}  />
         </Container>
     );
 };

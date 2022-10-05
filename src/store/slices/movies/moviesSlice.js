@@ -10,6 +10,10 @@ const initialState = {
     series:[],
     genresMovies:[],
     genresSeries:[],
+    moviesPage: 1,
+    seriesPage: 1,
+    searchPage: 1,
+    searchActive: false,
 };
 
 export const moviesSlice = createSlice({
@@ -51,6 +55,24 @@ export const moviesSlice = createSlice({
             state.isLoading = false;
             state.series = payload.series;
         },
+        setMoviesPage: (state, { payload }) => {
+            // state.page = action.payload.page;
+            state.moviesPage = payload;
+        },
+        setSeriesPage: (state, { payload }) => {
+            // state.page = action.payload.page;
+            state.seriesPage = payload;
+        },
+        setSearchPage: (state, { payload }) => {
+            // state.page = action.payload.page;
+            state.searchPage = payload;
+        },
+        setSearchActive: (state, { payload }) => {
+            // state.page = action.payload.page;
+            state.searchActive = payload;
+        },
+        
+
         deleteFavoriteById: (state, {payload}) => {
             state.isLoading = false;
             state.favorites = state.favorites.filter(movie => movie.id !== payload.id);
@@ -74,6 +96,10 @@ export const {
     setMovies,
     setFavorites,
     setSeries,
+    setMoviesPage,
+    setSeriesPage,
+    setSearchPage,
+    setSearchActive,
     setSelectedMovie,
     deleteFavoriteById,
     clearAllLogout,

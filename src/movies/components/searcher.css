@@ -3,11 +3,14 @@
     height: 100vh;
     position: absolute;
     top: 50;
-    right: -300px;
+    right: 0px;
     z-index: 2;
+    display: none;
     transition: right 0.5s ease-in-out;
+    
 }
 
 .genresMenu.active {
     right: 0;
+    display: block;
 }

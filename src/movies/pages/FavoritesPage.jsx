@@ -1,40 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { startLogout } from '../../store/slices/auth/thunks';
-import { setSelectedMovie } from '../../store/slices/movies/moviesSlice';
-import { startDeleteFavorites } from '../../store/slices/movies/thunks';
+import { CardHeader, Container, Divider } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { MoviesList } from '../components/MoviesList';
+
 
 export const FavoritesPage = () => {
-    const dispatch = useDispatch();
 
-    const { favorites} = useSelector(state => state.movies);
-    
+    const { favorites, favoritesId } = useSelector(state => state.movies);
 
-    const onLogout = () => {
-        dispatch(startLogout());
-    };
-
-    const onDeleteFavorites = movie => {
-        dispatch(setSelectedMovie(movie));
-        dispatch(startDeleteFavorites());
-
+return (
+    <Container>
+         <Divider textAlign='left'>
+                <CardHeader
+                    title='FAVORITOS'
+                    titleTypographyProps={{ fontSize: 20 }}
+                    subheader='Pelis y Series'
+                />
+            </Divider>
        
-    };
-    return (
-        <>
-            <h1>Favoritos: </h1>
-            <hr />
-            <ol>
-                {favorites.map(movie => (
-                    <li key={movie.id}>
-                        <h1>{movie.title || movie.name}</h1>
-                        {movie.title || movie.name}
-                        <p>{movie.overview}</p>
-                        <button onClick={() => onDeleteFavorites(movie)}>
-                            Delete
-                        </button>
-                    </li>
-                ))}
-            </ol>
-        </>
-    );
+        
+        <MoviesList movies={favorites} favoritesId={favoritesId}/>
+    </Container>
+);
 };

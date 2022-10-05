@@ -15,13 +15,13 @@ import './searcher.css'
 export const Searcher = ({ genres, onSubmit, onSelectGenre, pageTitle }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [genreSelected, setGenreSelected] = useState('Todas');
-
+    
     return (
         <>
             <form
                 onSubmit={e => {
                     onSubmit(e);
-                    setGenreSelected(e.target.keyword.value.trim());
+                    setGenreSelected(e.target.keyword.value.trim() || genreSelected);
                 }}
                 className='d-flex'
             >
@@ -30,6 +30,7 @@ export const Searcher = ({ genres, onSubmit, onSelectGenre, pageTitle }) => {
                     size='small'
                     type='text'
                     name='keyword'
+                    autoComplete='off'
                     focused
                     placeholder='Quiero buscar...'
                     fullWidth

@@ -7,12 +7,12 @@ import {
 import { MovieCard } from './MovieCard';
 import { Grid } from '@mui/material';
 
-export const MoviesList = ({ movies, favoritesId}) => {
+export const MoviesList = ({ movies, favoritesId }) => {
     const dispatch = useDispatch();
 
     const onAddRemoveFavorites = movie => {
         dispatch(setSelectedMovie(movie));
-        
+
         favoritesId.includes(movie.id)
             ? dispatch(startDeleteFavorites())
             : dispatch(startAddFavorites());
@@ -20,16 +20,20 @@ export const MoviesList = ({ movies, favoritesId}) => {
 
     return (
         <>
-            <Grid container spacing={2}>
-                {movies.map(movie => (
-                    <MovieCard
-                        key={movie.id}
-                        movie={movie}
-                        favoritesId={favoritesId}
-                        onAddRemoveFavorites={onAddRemoveFavorites}
-                    />
-                ))}
-            </Grid>
+            {!movies ? (
+                <h2>Cargando...</h2>
+            ) : (
+                <Grid container spacing={2}>
+                    {movies.map(movie => (
+                        <MovieCard
+                            key={movie.id}
+                            movie={movie}
+                            favoritesId={favoritesId}
+                            onAddRemoveFavorites={onAddRemoveFavorites}
+                        />
+                    ))}
+                </Grid>
+            )}
         </>
     );
 };
