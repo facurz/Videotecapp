@@ -50,7 +50,7 @@ export const MoviesPage = () => {
         dispatch(setMenuOpen(false));
     }
     return (
-        <Container>
+        <Container sx={{position: 'relative'}}>
             <Divider textAlign='left'>
                 <CardHeader
                     title={

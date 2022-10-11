@@ -43,6 +43,7 @@ export const Searcher = () => {
                     focused
                     placeholder='Quiero buscar...'
                     fullWidth
+                    sx={{ml: 2, width: 400}}
                     InputProps={{
                         endAdornment: (
                             <IconButton

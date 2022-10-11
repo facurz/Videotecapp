@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { startLogout } from '../../store/slices/auth/thunks';
 import { Searcher } from './Searcher';
@@ -15,7 +15,7 @@ import {
     Container,
     Paper,
 } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Logout, Menu as MenuIcon } from '@mui/icons-material';
 import logo from '../../assets/claqueta_movies.png';
 import { logout } from '../../store/slices/auth/authSlice';
 
@@ -26,6 +26,7 @@ const pages = [
 ];
 
 export const NavBar = () => {
+    const { displayName } = useSelector(state => state.auth);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const dispatch = useDispatch();
 
@@ -50,12 +51,7 @@ export const NavBar = () => {
                         height={50}
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     >
-                        <img
-                            width={57}
-                            height={50}
-                            src={logo}
-                            alt='logo'
-                        />
+                        <img width={57} height={50} src={logo} alt='logo' />
                     </Box>
 
                     <Typography
@@ -132,12 +128,7 @@ export const NavBar = () => {
                         height={50}
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     >
-                        <img
-                            width={57}
-                            height={50}
-                            src={logout}
-                            alt='logo'
-                        />
+                        <img width={57} height={50} src={logout} alt='logo' />
                     </Box>
                     <Typography
                         variant='h5'
@@ -183,10 +174,11 @@ export const NavBar = () => {
                         <Searcher />
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Button variant='outlined' onClick={onLogout}>
-                            Logout
-                        </Button>
+                    <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+                        <Typography variant='body1'>{displayName}</Typography>
+                        <IconButton onClick={onLogout} aria-label='logout'>
+                            <Logout color='primary'/>
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </Container>

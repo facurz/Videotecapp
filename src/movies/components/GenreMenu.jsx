@@ -24,7 +24,7 @@ export const GenreMenu = ({ genresList, handleMenu }) => {
                 container
                 width={300}
                 spacing={0.5}
-                sx={{ position: 'absolute', top: 70 }}
+                sx={{ position: 'absolute', top: 55 }}
             >
                 {genresList.map(genre => (
                     <Grid item key={genre.id} xs={12} textAlign='center'>

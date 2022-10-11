@@ -51,7 +51,7 @@ export const SeriesPage = () => {
     }
 
     return (
-        <Container>
+        <Container sx={{position: 'relative'}}>
             <Divider textAlign='left'>
                 <CardHeader
                     title={
