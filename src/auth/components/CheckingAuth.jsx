@@ -8,9 +8,9 @@ export const CheckingAuth = () => {
         direction='column'
         alignItems='center'
         justifyContent='center'
-        sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+        sx={{ minHeight: '100vh', backgroundColor: 'primary', padding: 4 }}
     >
-       <CircularProgress  color='warning' />     
+       <CircularProgress  color='primary' />     
     </Grid>
   )
 }

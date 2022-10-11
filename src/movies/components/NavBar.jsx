@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { startLogout } from '../../store/slices/auth/thunks';
+import { Searcher } from './Searcher';
 import {
     AppBar,
     Box,
@@ -15,8 +16,8 @@ import {
     Paper,
 } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import logoFilm from '../../assets/logoFilm.png';
-
+import logo from '../../assets/claqueta_movies.png';
+import { logout } from '../../store/slices/auth/authSlice';
 
 const pages = [
     { name: 'Películas', link: '/' },
@@ -40,21 +41,20 @@ export const NavBar = () => {
         setAnchorElNav(null);
     };
 
-
     return (
         <AppBar component='nav' position='static'>
             <Container>
                 <Toolbar disableGutters>
                     <Box
-                        width={90}
+                        width={57}
                         height={50}
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                     >
                         <img
-                            width={90}
+                            width={57}
                             height={50}
-                            src={logoFilm}
-                            alt='logoFilm'
+                            src={logo}
+                            alt='logo'
                         />
                     </Box>
 
@@ -66,15 +66,13 @@ export const NavBar = () => {
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            textDecoration: 'none',
+                            fontFamily: 'Days One, sans-serif',
+                            color: '#fff',
+                            textShadow: '4px 3px 4px rgba(106,165,220,0.6)',
                         }}
                     >
                         VIDEOTECAPP
-                        </Typography>
-                     
+                    </Typography>
 
                     <Box
                         sx={{
@@ -130,15 +128,15 @@ export const NavBar = () => {
                         </Menu>
                     </Box>
                     <Box
-                        width={90}
+                        width={57}
                         height={50}
                         sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
                     >
                         <img
-                            width={90}
+                            width={57}
                             height={50}
-                            src={logoFilm}
-                            alt='logoFilm'
+                            src={logout}
+                            alt='logo'
                         />
                     </Box>
                     <Typography
@@ -150,33 +148,29 @@ export const NavBar = () => {
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            textDecoration: 'none',
+                            fontFamily: 'Days One, sans-serif',
+                            color: '#fff',
+                            textShadow: '4px 3px 4px rgba(106,165,220,0.6)',
                         }}
                     >
-                       VIDEOTECAPP
-                        </Typography>
+                        VIDEOTECAPP
+                    </Typography>
                     <Box
                         sx={{
-                            
                             flexGrow: 1,
                             display: {
                                 xs: 'none',
                                 md: 'flex',
                             },
-                            justifyContent:'center'
+                            justifyContent: 'start',
+                            alignItems: 'center',
                         }}
-                       
                     >
                         {pages.map(page => (
                             <Button
                                 key={page.name}
                                 onClick={handleCloseNavMenu}
                                 sx={{
-                                    ml: 1,
-                                    mr: 1,
                                     color: 'white',
                                     display: 'block',
                                 }}
@@ -186,6 +180,7 @@ export const NavBar = () => {
                                 {page.name}
                             </Button>
                         ))}
+                        <Searcher />
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>

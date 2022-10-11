@@ -6,9 +6,12 @@ import {
 } from '../../store/slices/movies/thunks';
 import { MovieCard } from './MovieCard';
 import { Grid } from '@mui/material';
+import { CheckingAuth } from '../../auth/components/CheckingAuth';
 
 export const MoviesList = ({ movies, favoritesId }) => {
     const dispatch = useDispatch();
+
+    
 
     const onAddRemoveFavorites = movie => {
         dispatch(setSelectedMovie(movie));
@@ -21,12 +24,12 @@ export const MoviesList = ({ movies, favoritesId }) => {
     return (
         <>
             {!movies ? (
-                <h2>Cargando...</h2>
+                <CheckingAuth/>
             ) : (
                 <Grid container spacing={2}>
-                    {movies.map(movie => (
+                    {movies?.map(movie => (
                         <MovieCard
-                            key={movie.id}
+                            key={movie.id }
                             movie={movie}
                             favoritesId={favoritesId}
                             onAddRemoveFavorites={onAddRemoveFavorites}

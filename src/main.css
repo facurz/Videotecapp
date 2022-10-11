@@ -1,9 +1,8 @@
-.in{
-    background-color: red;
-    border-radius: 10px;
-}
 
-.out{
-    background-color: grey;
-    border-radius: 10px;
+
+.layout__background{
+    width: 600;
+    height: 600;
+    background: url('./assets/claqueta_auth.png');
+    background-size: cover;
 }

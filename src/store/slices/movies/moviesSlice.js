@@ -2,88 +2,129 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isLoading: false,
-    // page: 0,
     selectedMovie: null,
-    movies: [],
+    keywordSearched: null,
+    media_type: null,
     favorites: [],
-    favoritesId:[],
-    series:[],
-    genresMovies:[],
-    genresSeries:[],
+    favoritesId: [],
+    movies: [],
     moviesPage: 1,
+    genresMovies: [],
+    genreId: null,
+    genreName: 'Populares',
+    series: [],
     seriesPage: 1,
-    searchPage: 1,
-    searchActive: false,
+    genresSeries: [],
+    genreIdSeries: null,
+    genreNameSeries: 'Populares',
+    searchResults: [],
+    searchResultsPage: 1,
 };
 
 export const moviesSlice = createSlice({
     name: 'movies',
     initialState,
     reducers: {
+
+        //Global
         loadingMovies: state => {
             state.isLoading = true;
-        },
-        getGenresMovies: (state, { payload }) => {
-            // state.page = action.payload.page;
-            state.isLoading = false;
-            state.genresMovies= payload;
-        },
-        getGenresSeries: (state, { payload }) => {
-            // state.page = action.payload.page;
-            state.isLoading = false;
-            state.genresSeries = payload;
-        },
-        getFavorites:(state, {payload})=>{
-            state.favorites = payload;
-            state.favoritesId = state.favorites.map(movie => Number(movie.id));
         },
         setSelectedMovie: (state, { payload }) => {
             state.selectedMovie = payload;
         },
-        setMovies: (state, { payload }) => {
-            // state.page = action.payload.page;
+        setKeywordSearched: (state, { payload }) => {
             state.isLoading = false;
-            state.movies = payload.movies;
+            state.keywordSearched = payload;
+        },
+        setMediaType: (state, { payload }) => {
+            state.isLoading = false;
+            state.media_type = payload;
+        },
+
+        //Favorites
+        getFavorites: (state, { payload }) => {
+            state.favorites = payload;
+            state.favoritesId = state.favorites.map(movie => Number(movie.id));
         },
         setFavorites: (state, { payload }) => {
-            // state.page = action.payload.page;
             state.isLoading = false;
             state.favorites.push(payload);
             state.favoritesId.push(payload.id);
         },
-        setSeries: (state, {payload}) =>{
+        deleteFavoriteById: (state, { payload }) => {
+            state.isLoading = false;
+            state.favorites = state.favorites.filter(
+                movie => movie.id !== payload.id
+            );
+            state.favoritesId = state.favorites.map(movie => Number(movie.id));
+        },
+
+        //Movies
+        setMovies: (state, { payload }) => {
+            state.isLoading = false;
+            state.movies = payload.movies;
+        },
+        setMoviesPage: (state, { payload }) => {
+            state.moviesPage = payload;
+        },
+        getGenresMovies: (state, { payload }) => {
+            state.isLoading = false;
+            state.genresMovies = payload;
+        },
+        setGenreName: (state, { payload }) => {
+            state.genreName = payload;
+        },
+        setGenreId: (state, { payload }) => {
+            state.genreId = payload;
+        },
+
+        //Series
+        setSeries: (state, { payload }) => {
             state.isLoading = false;
             state.series = payload.series;
         },
-        setMoviesPage: (state, { payload }) => {
-            // state.page = action.payload.page;
-            state.moviesPage = payload;
+        getGenresSeries: (state, { payload }) => {
+            state.isLoading = false;
+            state.genresSeries = payload;
         },
         setSeriesPage: (state, { payload }) => {
-            // state.page = action.payload.page;
             state.seriesPage = payload;
         },
-        setSearchPage: (state, { payload }) => {
-            // state.page = action.payload.page;
-            state.searchPage = payload;
+        setGenreNameSeries: (state, { payload }) => {
+            state.genreNameSeries = payload;
         },
-        setSearchActive: (state, { payload }) => {
-            // state.page = action.payload.page;
-            state.searchActive = payload;
+        setGenreIdSeries: (state, { payload }) => {
+            state.genreIdSeries = payload;
         },
-        
 
-        deleteFavoriteById: (state, {payload}) => {
+        //searchResults
+        setSearchResults: (state, { payload }) => {
             state.isLoading = false;
-            state.favorites = state.favorites.filter(movie => movie.id !== payload.id);
-            state.favoritesId = state.favorites.map(movie => Number(movie.id));
-          },
+            state.searchResults = payload;
+        },
+        setSearchResultsPage: (state, { payload }) => {
+            state.searchResultsPage = payload;
+        },
+
+        //Logout
         clearAllLogout: state => {
             state.isLoading = false;
-            state.movies = [];
-            state.favorites = [];
             state.selectedMovie = null;
+            state.favorites = [];
             state.favoritesId = [];
+            state.genresMovies = [];
+            state.genresSeries = [];
+            state.movies = [];
+            state.series = [];
+            state.searchResults = [];
+            state.moviesPage = 1;
+            state.seriesPage = 1;
+            state.searchResultsPage = 1;
+            state.keywordSearched = null;
+            state.genreId = null;
+            state.media_type = null;
+            state.genreName = 'Populares';
         },
     },
 });
@@ -94,15 +135,21 @@ export const {
     getGenresSeries,
     getFavorites,
     setMovies,
+    setGenreId,
     setFavorites,
     setSeries,
+    setKeywordSearched,
     setMoviesPage,
     setSeriesPage,
-    setSearchPage,
-    setSearchActive,
+    setMediaType,
+    setSearchResults,
+    setGenreName,
+    setSearchResultsPage,
     setSelectedMovie,
     deleteFavoriteById,
     clearAllLogout,
+    setGenreNameSeries,
+    setGenreIdSeries,
 } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

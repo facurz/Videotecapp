@@ -1,29 +1,44 @@
-import { Grid, Typography } from "@mui/material";
+import { Box, Stack, Typography } from '@mui/material';
 
-
-export const AuthLayout = ({ children, title = '' }) => {
-  return (
-    <Grid
-      container
-      spacing={0}
-      direction="row"
-      alignItems="center"
-      justifyContent="center"
-      sx={{ minHeight: "100vh", backgroundColor: "primary.main", padding: 4 }}
-    >
-      <Grid
-        item
-        xs={12}
-        sm={8}
-        md={4}
-        className="box-shadow"
-        sx={{ backgroundColor: "#fff", padding: 3, borderRadius: 2 }}
-      >
-        <Typography variant="h5" sx={{ mb: 1 }}>
-          {title}
-        </Typography>
-        {children}
-      </Grid>
-    </Grid>
-  );
+export const AuthLayout = ({ children }) => {
+    return (
+        <Stack
+            direction='column'
+            alignItems='center'
+            justifyContent='center'
+            sx={{ minHeight: '100vh', backgroundColor: 'primary', padding: 4 }}
+        >
+            <Stack
+                direction='column'
+                alignItems='center'
+                justifyContent='center'
+            >
+                <Typography
+                    variant='h4'
+                    noWrap
+                    component='h2'
+                    sx={{
+                        fontFamily: 'Days One, sans-serif',
+                        color: '#fff',
+                        textShadow: '4px 3px 4px rgba(106,165,220,0.6)',
+                    }}
+                >
+                    VideotecApp
+                </Typography>
+            </Stack>
+            <Stack
+                className='layout__background'
+                alignItems='center'
+                justifyContent='end'
+                sx={{
+                    borderRadius: 2,
+                    pb: 1,
+                    width: { md: 400, sm: 300 },
+                    height: { md: 349, sm: 262 },
+                }}
+            >
+                {children}
+            </Stack>
+        </Stack>
+    );
 };

@@ -5,7 +5,7 @@ export const Pagination = ({page, prevPage, nextPage}) => {
     return (
         <>
             
-                <div className='container d-flex m-4 mx-auto justify-content-center align-items-center'>
+                <div className='container d-flex  mx-auto justify-content-center align-items-center'>
                     <IconButton
                         onClick={prevPage}
                         size='large'

@@ -16,8 +16,8 @@ import {
     setSeries,
     getGenresMovies,
     getGenresSeries,
+    setSearchResults,
 } from './moviesSlice';
-
 
 //Get list movies genres
 export const startGenresMoviesList = () => {
@@ -25,10 +25,11 @@ export const startGenresMoviesList = () => {
         dispatch(loadingMovies());
         const endPoint =
             'https://api.themoviedb.org/3/genre/movie/list?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US';
-        
+
         const { data } = await axios.get(endPoint);
-        dispatch(getGenresMovies([{"id": null,
-        "name": "Todas"} ,...data.genres]));
+        dispatch(
+            getGenresMovies([{ id: null, name: 'Populares' }, ...data.genres])
+        );
     };
 };
 
@@ -40,81 +41,50 @@ export const startGenresSeriesList = () => {
             'https://api.themoviedb.org/3/genre/tv/list?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US';
 
         const { data } = await axios.get(endPoint);
-        dispatch(getGenresSeries([{"id": null,
-        "name": "Todas"} ,...data.genres]));
+        dispatch(
+            getGenresSeries([{ id: null, name: 'Populares' }, ...data.genres])
+        );
     };
 };
 
-//Get  recommended movies from Api
-export const startGetMovies = (moviesPage) => {
+//Get popular movies from Api
+export const startGetMovies = (moviesPage, genreId) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${moviesPage}`;
+        const endPoint = `https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&with_genres=${genreId}&page=${moviesPage}`;
 
         const { data } = await axios.get(endPoint);
-        dispatch(setMovies({ movies: data.results}));
-        console.log('get movies!!!')
+        const results = data.results.map(el=> el = {...el, media_type: 'movie'});
+        dispatch(setMovies({movies: results}));
+        console.log('get movies!');
     };
 };
 
-//Get movies by genre from Api
-export const startGetMoviesByGenre = (genreId) => {
+//Get popular series from Api
+export const startGetSeries = (seriesPage, genreIdSeries) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genreId}`;
+        const endPoint = `https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genreIdSeries}&page=${seriesPage}`;
 
         const { data } = await axios.get(endPoint);
-        dispatch(setMovies({ movies: data.results}));
+        const results = data.results.map(el=> el = {...el, media_type: 'tv'});
+        dispatch(setSeries({ series: results }));
+        console.log('get series!');
     };
 };
 
-//Get series by genre from Api
-export const startGetSeriesByGenre = (genreId) => {
+//Search by keyword
+export const startSearchMoviesByKeyword = (
+    keywordSearched,
+    searchResultsPage
+) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genreId}`;
+        const endPoint = `https://api.themoviedb.org/3/search/multi?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keywordSearched}&page=${searchResultsPage}`;
 
         const { data } = await axios.get(endPoint);
-        dispatch(setSeries({ series: data.results}));
-    };
-};
-
-//Get  recommended series from Api
-export const startGetSeries = (seriesPage) => {
-    return async dispatch => {
-        dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US&sort_by=popularity.desc&timezone=America%2FNew_York&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0&page=${seriesPage}`;
-
-        const { data } = await axios.get(endPoint);
-        dispatch(setSeries({ series: data.results }));
-    };
-};
-
-//Search Movies by keyword
-export const startSearchMoviesByKeyword = (keyword, searchPage) => {
-    return async dispatch => {
-        dispatch(loadingMovies());
-        const endPoint =
-        `https://api.themoviedb.org/3/search/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keyword}&page=${searchPage}`;
-
-        const { data } = await axios.get(endPoint);
-        dispatch(setMovies({ movies: data.results }));
-    };
-};
-
-//Search Series by keyword
-export const startSearchSeriesByKeyword = (keyword) => {
-    return async dispatch => {
-        dispatch(loadingMovies());
-        const endPoint =
-        `https://api.themoviedb.org/3/search/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keyword}`;
-
-        const { data } = await axios.get(endPoint);
-        dispatch(setSeries({ series: data.results }));
+        const payload = data.results.filter(el => !el.known_for);
+        dispatch(setSearchResults(payload));
     };
 };
 
@@ -132,12 +102,14 @@ export const startLoadingFavorites = () => {
         );
         const { docs } = await getDocs(collectionRef);
 
-        const favorites = docs.map(doc => ({ id: Number(doc.id), ...doc.data() }));
+        const favorites = docs.map(doc => ({
+            id: Number(doc.id),
+            ...doc.data(),
+        }));
 
         dispatch(getFavorites(favorites));
     };
 };
-
 
 export const startAddFavorites = () => {
     return async (dispatch, getState) => {
@@ -154,10 +126,8 @@ export const startAddFavorites = () => {
 
         await setDoc(docRef, movieToFireStore, { merge: true });
         dispatch(setFavorites(selectedMovie));
-
     };
 };
-
 
 export const startDeleteFavorites = () => {
     return async (dispatch, getState) => {
@@ -171,6 +141,5 @@ export const startDeleteFavorites = () => {
 
         await deleteDoc(docRef);
         dispatch(deleteFavoriteById(selectedMovie));
-
     };
 };

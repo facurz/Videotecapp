@@ -12,11 +12,12 @@ import { NavBar } from '../components/NavBar';
 import { DetailPage } from '../pages/DetailPage';
 import { FavoritesPage } from '../pages/FavoritesPage';
 import { MoviesPage } from '../pages/MoviesPage';
+import { SearchPage } from '../pages/SearchPage';
 import { SeriesPage } from '../pages/SeriesPage';
 
 export const MoviesRoutes = () => {
     const dispatch = useDispatch();
-    const { moviesPage, seriesPage } = useSelector(state => state.movies);
+    const { moviesPage, seriesPage, genreId, genreIdSeries } = useSelector(state => state.movies);
 
     useEffect(() => {
         dispatch(startLoadingFavorites()); //Get favorites from Firebase
@@ -28,13 +29,13 @@ export const MoviesRoutes = () => {
 
     //Get recommended movies from Api
     useEffect(() => {
-        dispatch(startGetMovies(moviesPage));
-    }, [moviesPage]); 
+        dispatch(startGetMovies(moviesPage, genreId));
+    }, [moviesPage, genreId]); 
 
     //Get recommended series from Api
     useEffect(() => {
-        dispatch(startGetSeries(seriesPage));
-    }, [seriesPage]); 
+        dispatch(startGetSeries(seriesPage, genreIdSeries));
+    }, [seriesPage, genreIdSeries]); 
     return (
         <>
             <NavBar />
@@ -42,6 +43,7 @@ export const MoviesRoutes = () => {
                 <Route path='/' element={<MoviesPage />} />
                 <Route path='series' element={<SeriesPage />} />
                 <Route path='favorites' element={<FavoritesPage />} />
+                <Route path='multiSearch' element={<SearchPage />} />
                 <Route path='/detail' element={<DetailPage />} />
 
                 <Route path='/*' element={<Navigate to='/' />} />

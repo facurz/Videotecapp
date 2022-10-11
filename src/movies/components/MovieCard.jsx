@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setMediaType } from '../../store/slices/movies/moviesSlice';
 import Card from '@mui/material/Card';
 import {
     IconButton,
@@ -13,14 +16,25 @@ import {
     Stack,
 } from '@mui/material';
 import { Favorite, Star } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
 
 export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const id = movie.id;
     const title = movie.title || movie.name;
     const overview = movie.overview;
     const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     const rating = Number(movie.vote_average) / 2;
+    const media_type = movie.media_type;
+
+
+    const handleClick = () => {
+        dispatch(setMediaType(media_type))
+        navigate(`/detail?id=${id}`)
+        
+    }
 
     return (
         <Grid item xs={3}>
@@ -33,7 +47,7 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
                     }
                     titleTypographyProps={{ fontSize: 20, display: 'inline' }}
                 />
-                <Box component={Link} to={`/detail?movieID=${id}`}>
+                <Box component={Button} onClick={handleClick}>
                     <CardMedia
                         component='img'
                         height='370'
@@ -80,8 +94,7 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
                     />
                     <Button
                         aria-label='view details'
-                        component={Link}
-                        to={`/detail?movieID=${id}`}
+                        onClick={handleClick}
                         size='small'
                     >
                         Ver Mas
