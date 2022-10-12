@@ -1,8 +1,23 @@
-
-
 .layout__background{
     width: 600;
     height: 600;
     background: url('./assets/claqueta_auth.png');
     background-size: cover;
 }
+
+.genresMenu {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    z-index: 1;
+    display: none;
+    
+}
+
+.genresMenu.active {
+    left: 0;
+    display: block;
+}
+

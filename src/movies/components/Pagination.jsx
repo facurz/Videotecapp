@@ -1,7 +1,7 @@
 import { SkipNextOutlined, SkipPreviousOutlined } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 
-export const Pagination = ({page, prevPage, nextPage}) => {
+export const Pagination = ({page, prevPage, nextPage, totalPages}) => {
     return (
         <>
             
@@ -27,6 +27,7 @@ export const Pagination = ({page, prevPage, nextPage}) => {
                         size='large'
                         color='primary'
                         aria-label='nextPage'
+                        disabled={page === totalPages}
                     >
                         <SkipNextOutlined fontSize='medium' />
                     </IconButton>

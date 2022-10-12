@@ -6,6 +6,7 @@ import { MoviesList } from '../components/MoviesList';
 import { Pagination } from '../components/Pagination';
 import { CardHeader, Container, Divider } from '@mui/material';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
+import Swal from 'sweetalert2';
 
 export const SearchPage = () => {
     const dispatch = useDispatch();

@@ -16,8 +16,7 @@ import {
     Paper,
 } from '@mui/material';
 import { Logout, Menu as MenuIcon } from '@mui/icons-material';
-import logo from '../../assets/claqueta_movies.png';
-import { logout } from '../../store/slices/auth/authSlice';
+import { setMenuOpen } from '../../store/slices/ui/uiSlice';
 
 const pages = [
     { name: 'Películas', link: '/' },
@@ -26,9 +25,10 @@ const pages = [
 ];
 
 export const NavBar = () => {
-    const { displayName } = useSelector(state => state.auth);
+    const { displayName, menuOpen } = useSelector(state => state.auth);
     const [anchorElNav, setAnchorElNav] = useState(null);
     const dispatch = useDispatch();
+
 
     const onLogout = () => {
         dispatch(startLogout());
@@ -40,19 +40,14 @@ export const NavBar = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+        dispatch(setMenuOpen(false))
+        
     };
 
     return (
         <AppBar component='nav' position='static'>
             <Container>
                 <Toolbar disableGutters>
-                    <Box
-                        width={57}
-                        height={50}
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                    >
-                        <img width={57} height={50} src={logo} alt='logo' />
-                    </Box>
 
                     <Typography
                         variant='h5'
@@ -69,7 +64,7 @@ export const NavBar = () => {
                     >
                         VIDEOTECAPP
                     </Typography>
-
+                    
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -111,9 +106,9 @@ export const NavBar = () => {
                                         onClick={handleCloseNavMenu}
                                         component={RouterLink}
                                         to={page.link}
+                                        fullWidth
                                         sx={{
                                             fontSize: 12,
-                                            width: 120,
                                             mb: 0.5,
                                         }}
                                     >
@@ -121,14 +116,9 @@ export const NavBar = () => {
                                     </Button>
                                 </Paper>
                             ))}
+                            <Searcher/>
                         </Menu>
-                    </Box>
-                    <Box
-                        width={57}
-                        height={50}
-                        sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-                    >
-                        <img width={57} height={50} src={logout} alt='logo' />
+                        
                     </Box>
                     <Typography
                         variant='h5'
@@ -153,7 +143,7 @@ export const NavBar = () => {
                                 xs: 'none',
                                 md: 'flex',
                             },
-                            justifyContent: 'start',
+                            justifyContent: 'center',
                             alignItems: 'center',
                         }}
                     >
@@ -175,7 +165,7 @@ export const NavBar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
-                        <Typography variant='body1'>{displayName}</Typography>
+                        <Typography variant='body1' sx={{display:{xs:'none', md:'flex'}}}>{displayName}</Typography>
                         <IconButton onClick={onLogout} aria-label='logout'>
                             <Logout color='primary'/>
                         </IconButton>

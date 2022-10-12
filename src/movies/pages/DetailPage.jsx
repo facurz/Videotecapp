@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { CardHeader, Container, Divider } from '@mui/material';
+import { Button, CardHeader, Container, Divider, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
 
@@ -42,16 +42,16 @@ export const DetailPage = () => {
                 {!movie && <CheckingAuth/>}
 
                 {movie && (
-                    <div className='container'>
-                        <div className='row'>
-                            <div className='col-4'>
+                    <Container>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                                     className='img-fluid'
                                     alt='Poster'
                                 />
-                            </div>
-                            <div className='col-8'>
+                            </Grid>
+                            <Grid item xs={8}>
                                 <h5>Fecha estreno: {movie.release_date}</h5>
                                 <h5>Reseña:</h5>
                                 <p>{movie.overview}</p>
@@ -64,16 +64,15 @@ export const DetailPage = () => {
                                         </li>
                                     ))}
                                 </ul>
-                                <button
-                                    style={{ backgroundColor: '#18978F' }}
-                                    className='btn btn-outline-light '
+                                <Button
+                                    variant='contained'
                                     onClick={onNavigateBack}
                                 >
-                                    Back...
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                    Volver
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Container>
                 )}
             </main>
         </Container>

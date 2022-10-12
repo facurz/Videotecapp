@@ -1,12 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    setGenreId,
-    setGenreName,
-    setMoviesPage,
-} from '../../store/slices/movies/moviesSlice';
 import { setMenuOpen } from '../../store/slices/ui/uiSlice';
 import { Box, Button, Grid, Paper } from '@mui/material';
-import './genreMenu.css';
 
 export const GenreMenu = ({ genresList, handleMenu }) => {
     const dispatch = useDispatch();

@@ -6,10 +6,10 @@ import {
 } from '../../store/slices/movies/moviesSlice';
 import { Search } from '@mui/icons-material';
 import { TextField, IconButton } from '@mui/material';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 export const Searcher = () => {
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export const Searcher = () => {
                 icon: 'question',
                 confirmButtonText: 'OK',
             });
-        } else {
+        }else {
             dispatch(setKeywordSearched(keyword));
             dispatch(setSearchResultsPage(1));
             navigate('multiSearch');
@@ -33,7 +33,7 @@ export const Searcher = () => {
 
     return (
         <>
-            <form onSubmit={e => handleSubmit(e)} >
+            <form onSubmit={e => handleSubmit(e)}>
                 <TextField
                     id='outlined-size-small'
                     size='small'
@@ -43,7 +43,10 @@ export const Searcher = () => {
                     focused
                     placeholder='Quiero buscar...'
                     fullWidth
-                    sx={{ml: 2, width: 400}}
+                    sx={{
+                        ml: { xs: 0, md: 2 },
+                        width: { xs: 'auto', md: 400 },
+                    }}
                     InputProps={{
                         endAdornment: (
                             <IconButton

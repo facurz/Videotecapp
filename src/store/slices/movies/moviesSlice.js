@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isLoading: false,
+    totalPages: 1,
     selectedMovie: null,
     keywordSearched: null,
     media_type: null,
@@ -64,6 +65,7 @@ export const moviesSlice = createSlice({
         setMovies: (state, { payload }) => {
             state.isLoading = false;
             state.movies = payload.movies;
+            state.totalPages= payload.total_pages
         },
         setMoviesPage: (state, { payload }) => {
             state.moviesPage = payload;
@@ -102,6 +104,7 @@ export const moviesSlice = createSlice({
         setSearchResults: (state, { payload }) => {
             state.isLoading = false;
             state.searchResults = payload;
+            
         },
         setSearchResultsPage: (state, { payload }) => {
             state.searchResultsPage = payload;

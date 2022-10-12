@@ -37,8 +37,8 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
     }
 
     return (
-        <Grid item xs={3}>
-            <Card sx={{ maxWidth: 345 }}>
+        <Grid item xs={10} md={3}>
+            <Card sx={{ maxWidth: 345}}>
                 <CardHeader
                     title={
                         title.length > 23
@@ -47,14 +47,14 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
                     }
                     titleTypographyProps={{ fontSize: 20, display: 'inline' }}
                 />
-                <Box component={Button} onClick={handleClick}>
+                <Stack component={Button} onClick={handleClick} fullWidth >
                     <CardMedia
                         component='img'
-                        height='370'
+                        height={{md:370, xs:300}}
                         image={poster}
                         alt={title}
                     />
-                </Box>
+                </Stack>
                 <CardContent sx={{ pb: 0 }}>
                     <Typography variant='body2' color='text.secondary'>
                         {overview.length > 130

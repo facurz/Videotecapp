@@ -16,7 +16,7 @@ import { CheckingAuth } from '../../auth/components/CheckingAuth';
 
 export const MoviesPage = () => {
     const dispatch = useDispatch();
-    const { moviesPage, movies, favorites, favoritesId, genreName, genresMovies, isLoading } =
+    const { moviesPage, movies, favorites, favoritesId, genreName, genresMovies, isLoading, totalPages } =
         useSelector(state => state.movies);
 
     const pageTitle = 'PELÍCULAS';
@@ -71,6 +71,7 @@ export const MoviesPage = () => {
                         page={moviesPage}
                         nextPage={nextPage}
                         prevPage={prevPage}
+                        totalPages={totalPages}
                     />
                     <MoviesList movies={movies} favoritesId={favoritesId}  />
                 </>
