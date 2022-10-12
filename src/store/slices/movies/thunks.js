@@ -18,13 +18,20 @@ import {
     getGenresSeries,
     setSearchResults,
 } from './moviesSlice';
+import { getEnvironment } from '../../../helpers/getEnvironment';
+
+const {
+    VITE_TMDBKEY
+} = getEnvironment();
+
+
 
 //Get list movies genres
 export const startGenresMoviesList = () => {
     return async dispatch => {
         dispatch(loadingMovies());
         const endPoint =
-            'https://api.themoviedb.org/3/genre/movie/list?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US';
+            `https://api.themoviedb.org/3/genre/movie/list?api_key=${VITE_TMDBKEY}&language=en-US`;
 
         const { data } = await axios.get(endPoint);
         dispatch(
@@ -38,7 +45,7 @@ export const startGenresSeriesList = () => {
     return async dispatch => {
         dispatch(loadingMovies());
         const endPoint =
-            'https://api.themoviedb.org/3/genre/tv/list?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=en-US';
+            `https://api.themoviedb.org/3/genre/tv/list?api_key=${VITE_TMDBKEY}&language=en-US`;
 
         const { data } = await axios.get(endPoint);
         dispatch(
@@ -51,7 +58,7 @@ export const startGenresSeriesList = () => {
 export const startGetMovies = (moviesPage, genreId) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint = `https://api.themoviedb.org/3/discover/movie?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&with_genres=${genreId}&page=${moviesPage}`;
+        const endPoint = `https://api.themoviedb.org/3/discover/movie?api_key=${VITE_TMDBKEY}&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&with_genres=${genreId}&page=${moviesPage}`;
 
         const { data } = await axios.get(endPoint);
         const results = data.results.map(
@@ -66,7 +73,7 @@ export const startGetMovies = (moviesPage, genreId) => {
 export const startGetSeries = (seriesPage, genreIdSeries) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint = `https://api.themoviedb.org/3/discover/tv?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genreIdSeries}&page=${seriesPage}`;
+        const endPoint = `https://api.themoviedb.org/3/discover/tv?api_key=${VITE_TMDBKEY}&language=es-Es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&with_genres=${genreIdSeries}&page=${seriesPage}`;
 
         const { data } = await axios.get(endPoint);
         const results = data.results.map(
@@ -84,7 +91,7 @@ export const startSearchMoviesByKeyword = (
 ) => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint = `https://api.themoviedb.org/3/search/multi?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es&query=${keywordSearched}&page=${searchResultsPage}`;
+        const endPoint = `https://api.themoviedb.org/3/search/multi?api_key=${VITE_TMDBKEY}&language=es-Es&query=${keywordSearched}&page=${searchResultsPage}`;
 
         const { data } = await axios.get(endPoint);
         const payload = data.results.filter(el => !el.known_for);

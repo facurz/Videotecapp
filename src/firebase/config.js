@@ -1,18 +1,26 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore/lite';
-import { getStorage } from 'firebase/storage';
+import { getEnvironment } from '../helpers/getEnvironment';
+
+const {
+    VITE_APIKEY,
+    VITE_AUTHDOMAIN,
+    VITE_PROJECTID,
+    VITE_STORAGEBUCKET,
+    VITE_MESSAGINGSENDERID,
+    VITE_APPID,
+} = getEnvironment();
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyBvGxoRZYuRULESX-0jmy3fCaEZDuNkagg',
-    authDomain: 'skillfactory-react-cb07e.firebaseapp.com',
-    projectId: 'skillfactory-react-cb07e',
-    storageBucket: 'killfactory-react-cb07e.appspot.com',
-    messagingSenderId: '794523386073',
-    appId: '1:794523386073:web:602737a243237994193ec8',
+    apiKey: VITE_APIKEY,
+    authDomain: VITE_AUTHDOMAIN,
+    projectId: VITE_PROJECTID,
+    storageBucket: VITE_STORAGEBUCKET,
+    messagingSenderId: VITE_MESSAGINGSENDERID,
+    appId: VITE_APPID,
 };
 
 const FirebaseApp = initializeApp(firebaseConfig);
 export const FirebaseAuth = getAuth( FirebaseApp );
 export const FirebaseDB = getFirestore( FirebaseApp );
-export const FirebaseStorage = getStorage( FirebaseApp );

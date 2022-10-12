@@ -5,6 +5,10 @@ import axios from 'axios';
 import { Button, CardHeader, Container, Divider, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
+import { getEnvironment } from '../../helpers/getEnvironment';
+
+
+const {VITE_TMDBKEY} = getEnvironment()
 
 export const DetailPage = () => {
     let query = new URLSearchParams(window.location.search);
@@ -18,7 +22,7 @@ export const DetailPage = () => {
     };
 
     useEffect(() => {
-        const endPoint = `https://api.themoviedb.org/3/${media_type}/${id}?api_key=547964d6c1a35134a0272e9fd9b4e58c&language=es-Es`;
+        const endPoint = `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${VITE_TMDBKEY}&language=es-Es`;
         axios
             .get(endPoint)
             .then(response => {
@@ -44,14 +48,15 @@ export const DetailPage = () => {
                 {movie && (
                     <Container>
                         <Grid container spacing={2}>
-                            <Grid item xs={4}>
+                            <Grid item md={4} xs={12} >
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                                     className='img-fluid'
                                     alt='Poster'
+                                    loading='lazy'
                                 />
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item md={8} xs={12}>
                                 <h5>Fecha estreno: {movie.release_date}</h5>
                                 <h5>Reseña:</h5>
                                 <p>{movie.overview}</p>

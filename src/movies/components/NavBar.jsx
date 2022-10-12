@@ -116,7 +116,7 @@ export const NavBar = () => {
                                     </Button>
                                 </Paper>
                             ))}
-                            <Searcher/>
+                            <Searcher handleCloseNavMenu={handleCloseNavMenu}/>
                         </Menu>
                         
                     </Box>
@@ -161,7 +161,7 @@ export const NavBar = () => {
                                 {page.name}
                             </Button>
                         ))}
-                        <Searcher />
+                        <Searcher handleCloseNavMenu={handleCloseNavMenu} />
                     </Box>
 
                     <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', justifyContent: 'end' }}>

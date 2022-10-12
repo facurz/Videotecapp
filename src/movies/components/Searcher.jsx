@@ -8,7 +8,7 @@ import { Search } from '@mui/icons-material';
 import { TextField, IconButton } from '@mui/material';
 import Swal from 'sweetalert2';
 
-export const Searcher = () => {
+export const Searcher = ({handleCloseNavMenu}) => {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,6 +28,7 @@ export const Searcher = () => {
             dispatch(setKeywordSearched(keyword));
             dispatch(setSearchResultsPage(1));
             navigate('multiSearch');
+            handleCloseNavMenu()
         }
     };
 

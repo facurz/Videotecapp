@@ -53,6 +53,7 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
                         height={{md:370, xs:300}}
                         image={poster}
                         alt={title}
+                        loading='lazy'
                     />
                 </Stack>
                 <CardContent sx={{ pb: 0 }}>
