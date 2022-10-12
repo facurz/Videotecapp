@@ -26,7 +26,7 @@ export const MoviesList = ({ movies, favoritesId }) => {
             {!movies ? (
                 <CheckingAuth/>
             ) : (
-                <Grid container spacing={2}>
+                <Grid container spacing={2} justifyContent='center'>
                     {movies?.map(movie => (
                         <MovieCard
                             key={movie.id }

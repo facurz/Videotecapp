@@ -33,8 +33,8 @@ export const AuthLayout = ({ children }) => {
                 sx={{
                     borderRadius: 2,
                     pb: 1,
-                    width: { md: 400, sm: 300 },
-                    height: { md: 349, sm: 262 },
+                    width: {md:400, xs:390},
+                    height: {md:349, xs: 339},
                 }}
             >
                 {children}

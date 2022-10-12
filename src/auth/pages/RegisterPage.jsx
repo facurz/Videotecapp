@@ -68,7 +68,7 @@ export const RegisterPage = () => {
                 onSubmit={onSubmit}
                 className='animate__animated animate__fadeIn'
             >
-                <Stack sx={{ width: {md:300, sm: 200}}}>
+                <Stack sx={{ width: 300}}>
                     <TextField
                         type='text'
                         size='small'
