@@ -83,8 +83,8 @@ export const MoviesPage = () => {
                         totalPages={totalPages}
                     />
                     <MoviesList movies={movies} favoritesId={favoritesId} />
-                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: {xs:1, md:16}, right: {xs:1, md:16}}}>
-                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 40}}/>
+                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: 5 , right: 'calc(50vw - 25px)'}}>
+                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 50}}/>
                     </IconButton>
                 </>
             )}
