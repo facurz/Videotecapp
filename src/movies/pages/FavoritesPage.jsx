@@ -23,11 +23,11 @@ export const FavoritesPage = () => {
                 aria-label='ArrowCircleUpTwoTone'
                 sx={{
                     position: 'fixed',
-                    bottom: { xs: 1, md: 16 },
-                    right: { xs: 1, md: 16 },
+                    bottom: 5,
+                    right: 'calc(50vw - 25px)',
                 }}
             >
-                <ArrowCircleUpTwoTone color='primary' sx={{ fontSize: 40 }} />
+                <ArrowCircleUpTwoTone color='primary' sx={{ fontSize: 50 }} />
             </IconButton>
         </Container>
     );

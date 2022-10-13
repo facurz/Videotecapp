@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchResultsPage } from '../../store/slices/movies/moviesSlice';
+import { setSearchResultsPage} from '../../store/slices/movies/moviesSlice';
 import { startSearchMoviesByKeyword } from '../../store/slices/movies/thunks';
 import { MoviesList } from '../components/MoviesList';
 import { Pagination } from '../components/Pagination';
 import { CardHeader, Container, Divider, IconButton } from '@mui/material';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
-import Swal from 'sweetalert2';
 import { ArrowCircleUpTwoTone } from '@mui/icons-material';
 
 export const SearchPage = () => {
     const dispatch = useDispatch();
 
     const {
+        totalResultsPages,
         searchResults,
         searchResultsPage,
         keywordSearched,
@@ -22,7 +22,6 @@ export const SearchPage = () => {
 
     const pageTitle = 'BÚSQUEDA';
 
-
     //Mount and update searchResults when params change
     useEffect(() => {
         dispatch(
@@ -30,14 +29,10 @@ export const SearchPage = () => {
         );
     }, [keywordSearched, searchResultsPage]);
 
-    //Events handle pagination
-    const prevPage = () => {
-        dispatch(setSearchResultsPage(searchResultsPage - 1));
-    };
-
-    const nextPage = () => {
-        dispatch(setSearchResultsPage(searchResultsPage + 1));
-    };
+   //Event handle pagination
+   const handleChange = (event, value) => {
+    dispatch(setSearchResultsPage(value))
+};
 
     return (
         <Container>
@@ -49,20 +44,32 @@ export const SearchPage = () => {
                 />
             </Divider>
             {isLoading ? (
-                <CheckingAuth/>
+                <CheckingAuth />
             ) : (
                 <>
                     <Pagination
                         page={searchResultsPage}
-                        nextPage={nextPage}
-                        prevPage={prevPage}
+                        totalPages={totalResultsPages}
+                        handleChange={handleChange}
                     />
                     <MoviesList
                         movies={searchResults}
                         favoritesId={favoritesId}
                     />
-                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: {xs:1, md:16}, right: {xs:1, md:16}}}>
-                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 40}}/>
+                    <IconButton
+                        component='a'
+                        href='#top'
+                        aria-label='ArrowCircleUpTwoTone'
+                        sx={{
+                            position: 'fixed',
+                            bottom: 5,
+                            right: 'calc(50vw - 25px)',
+                        }}
+                    >
+                        <ArrowCircleUpTwoTone
+                            color='primary'
+                            sx={{ fontSize: 50 }}
+                        />
                     </IconButton>
                 </>
             )}

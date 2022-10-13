@@ -20,18 +20,13 @@ import {
 } from './moviesSlice';
 import { getEnvironment } from '../../../helpers/getEnvironment';
 
-const {
-    VITE_TMDBKEY
-} = getEnvironment();
-
-
+const { VITE_TMDBKEY } = getEnvironment();
 
 //Get list movies genres
 export const startGenresMoviesList = () => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/genre/movie/list?api_key=${VITE_TMDBKEY}&language=en-US`;
+        const endPoint = `https://api.themoviedb.org/3/genre/movie/list?api_key=${VITE_TMDBKEY}&language=en-US`;
 
         const { data } = await axios.get(endPoint);
         dispatch(
@@ -44,8 +39,7 @@ export const startGenresMoviesList = () => {
 export const startGenresSeriesList = () => {
     return async dispatch => {
         dispatch(loadingMovies());
-        const endPoint =
-            `https://api.themoviedb.org/3/genre/tv/list?api_key=${VITE_TMDBKEY}&language=en-US`;
+        const endPoint = `https://api.themoviedb.org/3/genre/tv/list?api_key=${VITE_TMDBKEY}&language=en-US`;
 
         const { data } = await axios.get(endPoint);
         dispatch(
@@ -64,7 +58,9 @@ export const startGetMovies = (moviesPage, genreId) => {
         const results = data.results.map(
             el => (el = { ...el, media_type: 'movie' })
         );
-        dispatch(setMovies({ movies: results, totalPages: results.total_pages }));
+        dispatch(
+            setMovies({ movies: results, totalMoviesPages: data.total_pages })
+        );
         console.log('get movies!');
     };
 };
@@ -79,7 +75,9 @@ export const startGetSeries = (seriesPage, genreIdSeries) => {
         const results = data.results.map(
             el => (el = { ...el, media_type: 'tv' })
         );
-        dispatch(setSeries({ series: results }));
+        dispatch(
+            setSeries({ series: results, totalSeriesPages: data.total_pages })
+        );
         console.log('get series!');
     };
 };
@@ -95,7 +93,12 @@ export const startSearchMoviesByKeyword = (
 
         const { data } = await axios.get(endPoint);
         const payload = data.results.filter(el => !el.known_for);
-        dispatch(setSearchResults(payload));
+        dispatch(
+            setSearchResults({
+                searchResults: payload,
+                totalResultsPages: data.total_pages,
+            })
+        );
     };
 };
 

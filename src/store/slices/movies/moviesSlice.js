@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isLoading: false,
-    totalPages: 1,
     selectedMovie: null,
     keywordSearched: null,
     media_type: null,
@@ -10,16 +9,19 @@ const initialState = {
     favoritesId: [],
     movies: [],
     moviesPage: 1,
+    totalMoviesPages: 1,
     genresMovies: [],
     genreId: null,
     genreName: 'Populares',
     series: [],
     seriesPage: 1,
+    totalSeriesPages: 1,
     genresSeries: [],
     genreIdSeries: null,
     genreNameSeries: 'Populares',
     searchResults: [],
     searchResultsPage: 1,
+    totalResultsPages: 1,
 };
 
 export const moviesSlice = createSlice({
@@ -65,7 +67,7 @@ export const moviesSlice = createSlice({
         setMovies: (state, { payload }) => {
             state.isLoading = false;
             state.movies = payload.movies;
-            state.totalPages= payload.total_pages
+            state.totalMoviesPages= payload.totalMoviesPages
         },
         setMoviesPage: (state, { payload }) => {
             state.moviesPage = payload;
@@ -85,6 +87,7 @@ export const moviesSlice = createSlice({
         setSeries: (state, { payload }) => {
             state.isLoading = false;
             state.series = payload.series;
+            state.totalSeriesPages = payload.totalSeriesPages;
         },
         getGenresSeries: (state, { payload }) => {
             state.isLoading = false;
@@ -103,8 +106,8 @@ export const moviesSlice = createSlice({
         //searchResults
         setSearchResults: (state, { payload }) => {
             state.isLoading = false;
-            state.searchResults = payload;
-            
+            state.searchResults = payload.searchResults;
+            state.totalResultsPages = payload.totalResultsPages;
         },
         setSearchResultsPage: (state, { payload }) => {
             state.searchResultsPage = payload;

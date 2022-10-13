@@ -1,38 +1,14 @@
-import { SkipNextOutlined, SkipPreviousOutlined } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
+import { Stack, Pagination as PaginationMui } from '@mui/material';
 
-export const Pagination = ({page, prevPage, nextPage, totalPages}) => {
+export const Pagination = ({ page, totalPages, handleChange }) => {
+
+    const count = (totalPages <= 50) ? totalPages : 50;
+
     return (
         <>
-            
-                <div className='container d-flex  mx-auto justify-content-center align-items-center'>
-                    <IconButton
-                        onClick={prevPage}
-                        size='large'
-                        color='primary'
-                        aria-label='prevPage'
-                        disabled={page < 2}
-                    >
-                        <SkipPreviousOutlined fontSize='medium' />
-                    </IconButton>
-
-                    <div className='page mx-2'>
-                        <Typography variant='h6' component='p' color='primary'>
-                            Página {page}
-                        </Typography>
-                    </div>
-
-                    <IconButton
-                        onClick={nextPage}
-                        size='large'
-                        color='primary'
-                        aria-label='nextPage'
-                        disabled={page === totalPages}
-                    >
-                        <SkipNextOutlined fontSize='medium' />
-                    </IconButton>
-                </div>
-            
+            <Stack spacing={1} mb={2} alignItems='center'>
+                <PaginationMui count={count} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
+            </Stack>
         </>
     );
 };

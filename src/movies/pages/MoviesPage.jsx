@@ -24,7 +24,7 @@ export const MoviesPage = () => {
         genreName,
         genresMovies,
         isLoading,
-        totalPages,
+        totalMoviesPages,
     } = useSelector(state => state.movies);
 
     const pageTitle = 'PELÍCULAS';
@@ -39,13 +39,9 @@ export const MoviesPage = () => {
         dispatch(setMovies({ movies }));
     }, [favorites]);
 
-    //Events handle pagination
-    const prevPage = () => {
-        dispatch(setMoviesPage(moviesPage - 1));
-    };
-
-    const nextPage = () => {
-        dispatch(setMoviesPage(moviesPage + 1));
+    //Event handle pagination
+    const handleChange = (event, value) => {
+        dispatch(setMoviesPage(value))
     };
 
     //Event genreMenu
@@ -78,9 +74,8 @@ export const MoviesPage = () => {
                 <>
                     <Pagination
                         page={moviesPage}
-                        nextPage={nextPage}
-                        prevPage={prevPage}
-                        totalPages={totalPages}
+                        totalPages={totalMoviesPages}
+                        handleChange={handleChange}
                     />
                     <MoviesList movies={movies} favoritesId={favoritesId} />
                     <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: 5 , right: 'calc(50vw - 25px)'}}>
