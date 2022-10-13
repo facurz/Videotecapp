@@ -45,7 +45,7 @@ export const NavBar = () => {
     };
 
     return (
-        <AppBar component='nav' position='static'>
+        <AppBar component='nav' position='static' id='top'>
             <Container>
                 <Toolbar disableGutters>
 

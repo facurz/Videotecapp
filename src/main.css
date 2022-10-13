@@ -1,3 +1,6 @@
+html{
+    scroll-behavior: smooth;
+}
 .layout__background{
     width: 600;
     height: 600;

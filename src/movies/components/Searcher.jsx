@@ -1,22 +1,25 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from '../../hooks';
 import {
     setKeywordSearched,
     setSearchResultsPage,
 } from '../../store/slices/movies/moviesSlice';
+import Swal from 'sweetalert2';
 import { Search } from '@mui/icons-material';
 import { TextField, IconButton } from '@mui/material';
-import Swal from 'sweetalert2';
 
-export const Searcher = ({handleCloseNavMenu}) => {
-    
+const initialForm = {
+    keyword: '',
+};
+export const Searcher = ({ handleCloseNavMenu }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { keyword, onInputChange, onResetForm } = useForm(initialForm);
 
     //Event search by name
     const handleSubmit = e => {
         e.preventDefault();
-        const keyword = e.target.keyword.value.trim();
 
         if (!keyword) {
             Swal.fire({
@@ -24,11 +27,12 @@ export const Searcher = ({handleCloseNavMenu}) => {
                 icon: 'question',
                 confirmButtonText: 'OK',
             });
-        }else {
+        } else {
             dispatch(setKeywordSearched(keyword));
             dispatch(setSearchResultsPage(1));
             navigate('multiSearch');
-            handleCloseNavMenu()
+            handleCloseNavMenu();
+            onResetForm();
         }
     };
 
@@ -40,6 +44,8 @@ export const Searcher = ({handleCloseNavMenu}) => {
                     size='small'
                     type='text'
                     name='keyword'
+                    value={keyword}
+                    onChange={onInputChange}
                     autoComplete='off'
                     focused
                     placeholder='Quiero buscar...'

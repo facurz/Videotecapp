@@ -10,8 +10,8 @@ import { MoviesList } from '../components/MoviesList';
 import { Pagination } from '../components/Pagination';
 import { setMenuOpen } from '../../store/slices/ui/uiSlice';
 import { GenreMenu } from '../components/GenreMenu';
-import { Button, CardHeader, Container, Divider } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
+import { Button, CardHeader, Container, Divider, IconButton } from '@mui/material';
+import { ArrowCircleUpTwoTone, ExpandMore } from '@mui/icons-material';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
 
 export const SeriesPage = () => {
@@ -74,6 +74,9 @@ export const SeriesPage = () => {
                         prevPage={prevPage}
                     />
                     <MoviesList movies={series} favoritesId={favoritesId} />
+                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: {xs:1, md:16}, right: {xs:1, md:16}}}>
+                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 40}}/>
+                    </IconButton>
                 </>
             )}
         </Container>

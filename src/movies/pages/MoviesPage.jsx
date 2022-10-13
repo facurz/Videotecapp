@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     setGenreId,
@@ -8,20 +8,26 @@ import {
 } from '../../store/slices/movies/moviesSlice';
 import { MoviesList } from '../components/MoviesList';
 import { Pagination } from '../components/Pagination';
-import { Button, CardHeader, Container, Divider } from '@mui/material';
+import { Button, CardHeader, Container, Divider, IconButton } from '@mui/material';
 import { setMenuOpen } from '../../store/slices/ui/uiSlice';
 import { GenreMenu } from '../components/GenreMenu';
-import { ExpandMore } from '@mui/icons-material';
+import { ArrowCircleUpTwoTone, ExpandMore } from '@mui/icons-material';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
 
 export const MoviesPage = () => {
     const dispatch = useDispatch();
-    const { moviesPage, movies, favorites, favoritesId, genreName, genresMovies, isLoading, totalPages } =
-        useSelector(state => state.movies);
+    const {
+        moviesPage,
+        movies,
+        favorites,
+        favoritesId,
+        genreName,
+        genresMovies,
+        isLoading,
+        totalPages,
+    } = useSelector(state => state.movies);
 
     const pageTitle = 'PELÍCULAS';
-    
-
 
     //Set pagination to 1
     useEffect(() => {
@@ -30,7 +36,7 @@ export const MoviesPage = () => {
 
     //Update movies when favorites change
     useEffect(() => {
-        dispatch(setMovies({  movies }));
+        dispatch(setMovies({ movies }));
     }, [favorites]);
 
     //Events handle pagination
@@ -43,18 +49,21 @@ export const MoviesPage = () => {
     };
 
     //Event genreMenu
-    const handleMenu =(genreId, genreName) => {
+    const handleMenu = (genreId, genreName) => {
         dispatch(setGenreId(genreId));
         dispatch(setGenreName(genreName));
-        dispatch(setMoviesPage(1))
+        dispatch(setMoviesPage(1));
         dispatch(setMenuOpen(false));
-    }
+    };
     return (
-        <Container sx={{position: 'relative'}}>
-            <Divider textAlign='left'>
+        <Container sx={{ position: 'relative' }}>
+            <Divider  textAlign='left'>
                 <CardHeader
                     title={
-                        <Button onClick={() => dispatch(setMenuOpen(true))} endIcon={<ExpandMore />}>
+                        <Button
+                            onClick={() => dispatch(setMenuOpen(true))}
+                            endIcon={<ExpandMore />}
+                        >
                             {pageTitle}
                         </Button>
                     }
@@ -64,7 +73,7 @@ export const MoviesPage = () => {
             </Divider>
             <GenreMenu genresList={genresMovies} handleMenu={handleMenu} />
             {isLoading ? (
-                <CheckingAuth/>
+                <CheckingAuth />
             ) : (
                 <>
                     <Pagination
@@ -73,7 +82,10 @@ export const MoviesPage = () => {
                         prevPage={prevPage}
                         totalPages={totalPages}
                     />
-                    <MoviesList movies={movies} favoritesId={favoritesId}  />
+                    <MoviesList movies={movies} favoritesId={favoritesId} />
+                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: {xs:1, md:16}, right: {xs:1, md:16}}}>
+                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 40}}/>
+                    </IconButton>
                 </>
             )}
         </Container>

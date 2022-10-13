@@ -4,9 +4,10 @@ import { setSearchResultsPage } from '../../store/slices/movies/moviesSlice';
 import { startSearchMoviesByKeyword } from '../../store/slices/movies/thunks';
 import { MoviesList } from '../components/MoviesList';
 import { Pagination } from '../components/Pagination';
-import { CardHeader, Container, Divider } from '@mui/material';
+import { CardHeader, Container, Divider, IconButton } from '@mui/material';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
 import Swal from 'sweetalert2';
+import { ArrowCircleUpTwoTone } from '@mui/icons-material';
 
 export const SearchPage = () => {
     const dispatch = useDispatch();
@@ -60,6 +61,9 @@ export const SearchPage = () => {
                         movies={searchResults}
                         favoritesId={favoritesId}
                     />
+                    <IconButton component='a' href='#top' aria-label='ArrowCircleUpTwoTone'  sx={{position: 'fixed', bottom: {xs:1, md:16}, right: {xs:1, md:16}}}>
+                        <ArrowCircleUpTwoTone color='primary' sx={{fontSize: 40}}/>
+                    </IconButton>
                 </>
             )}
         </Container>

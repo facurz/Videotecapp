@@ -18,27 +18,26 @@ import {
 import { Favorite, Star } from '@mui/icons-material';
 
 export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
-
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const id = movie.id;
     const title = movie.title || movie.name;
-    const overview = movie.overview;
-    const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+    const overview = (movie.overview.length === 0) ? 'La reseña de este título no se encuentra disponible. Próximamente se agregará el contenido. Siga disfrutando de los otros títulos!' : movie.overview;
+    const poster = (movie.poster_path === null)
+        ? 'https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg'
+        : `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     const rating = Number(movie.vote_average) / 2;
     const media_type = movie.media_type;
 
-
     const handleClick = () => {
-        dispatch(setMediaType(media_type))
-        navigate(`/detail?id=${id}`)
-        
-    }
+        dispatch(setMediaType(media_type));
+        navigate(`/detail?id=${id}`);
+    };
 
     return (
         <Grid item xs={10} md={3}>
-            <Card sx={{ maxWidth: 345}}>
+            <Card sx={{ maxWidth: 345, minHeight:{md:610, xs: 300}}}>
                 <CardHeader
                     title={
                         title.length > 23
@@ -47,10 +46,10 @@ export const MovieCard = ({ movie, favoritesId, onAddRemoveFavorites }) => {
                     }
                     titleTypographyProps={{ fontSize: 20, display: 'inline' }}
                 />
-                <Stack component={Button} onClick={handleClick} fullWidth >
+                <Stack component={Button} onClick={handleClick} fullWidth>
                     <CardMedia
                         component='img'
-                        height={{md:370, xs:300}}
+                        height={{ md: 370, xs: 300 }}
                         image={poster}
                         alt={title}
                         loading='lazy'

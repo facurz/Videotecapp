@@ -7,8 +7,7 @@ import { useSelector } from 'react-redux';
 import { CheckingAuth } from '../../auth/components/CheckingAuth';
 import { getEnvironment } from '../../helpers/getEnvironment';
 
-
-const {VITE_TMDBKEY} = getEnvironment()
+const { VITE_TMDBKEY } = getEnvironment();
 
 export const DetailPage = () => {
     let query = new URLSearchParams(window.location.search);
@@ -43,12 +42,12 @@ export const DetailPage = () => {
                 />
             </Divider>
             <main>
-                {!movie && <CheckingAuth/>}
+                {!movie && <CheckingAuth />}
 
                 {movie && (
                     <Container>
                         <Grid container spacing={2}>
-                            <Grid item md={4} xs={12} >
+                            <Grid item md={4} xs={12}>
                                 <img
                                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                                     className='img-fluid'
@@ -56,8 +55,8 @@ export const DetailPage = () => {
                                     loading='lazy'
                                 />
                             </Grid>
-                            <Grid item md={8} xs={12}>
-                                <h5>Fecha estreno: {movie.release_date}</h5>
+                            <Grid item md={8} xs={12} pb={2}>
+                                <h5>Fecha estreno: {movie.release_date || movie.first_air_date}</h5>
                                 <h5>Reseña:</h5>
                                 <p>{movie.overview}</p>
                                 <h5>Rating: {movie.vote_average}</h5>
