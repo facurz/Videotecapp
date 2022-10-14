@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+      { "source": "/", "destination": "/" }, 
+      { "source": "/auth/login", "destination": "/auth/login" },
+      { "source": "/auth/register", "destination": "/auth/register" },
+      { "source": "/(.*)", "destination": "/" },
+      { "source": "/series", "destination": "/series" },
+      { "source": "/favorites", "destination": "favorites" },
+      { "source": "/multiSearch", "destination": "/multiSearch" },
+      { "source": "/detail", "destination": "/detail" }
+    ]
+  }

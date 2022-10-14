@@ -44,7 +44,7 @@ export const MoviesRoutes = () => {
                 <Route path='series' element={<SeriesPage />} />
                 <Route path='favorites' element={<FavoritesPage />} />
                 <Route path='multiSearch' element={<SearchPage />} />
-                <Route path='/detail' element={<DetailPage />} />
+                <Route path='detail' element={<DetailPage />} />
 
                 <Route path='/*' element={<Navigate to='/' />} />
             </Routes>

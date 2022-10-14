@@ -14,6 +14,7 @@ export const AuthLayout = ({ children }) => {
                 justifyContent='center'
             >
                 <Typography
+                className='animate__animated animate__flash'
                     variant='h4'
                     noWrap
                     component='h2'
